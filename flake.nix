@@ -8,50 +8,52 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs { inherit system ; };
-        lock = builtins.fromJSON (builtins.readFile ./deps-lock.json) ;
-        consUrl = segments:
-          nixpkgs.lib.pipe segments
-            [(map (pkgs.lib.strings.removeSuffix "/"))
-             (map (pkgs.lib.strings.removePrefix "/"))
-             (pkgs.lib.concatStringsSep "/")];
-        mkMvnDep = dep :
-          let
-            drv = pkgs.fetchurl {
-              hash = dep.hash ;
-              url = consUrl [ dep.mvn-repo dep.mvn-path] ;
-            };
-          in { path = drv ; name = dep.mvn-path ;} ;
-        deps = map mkMvnDep lock.mvn-deps ;
-        #depsClassPath = builtins.concatStringsSep ":" (map (x: "${x}") deps) ;
-        depsCache = pkgs.linkFarm "mvn-cache" deps ;
-
         cljs = pkgs.fetchurl {
           hash = "sha256-2xPFeMvpvErBL2KFbbcx2iMXENovsrk+3bubntp78tc=" ;
           url = "https://github.com/clojure/clojurescript/releases/download/r1.11.60/cljs.jar";
         } ;
-
-        cljs-jar = builtins.baseNameOf cljs ;
-
-        tbc = pkgs.stdenv.mkDerivation rec {
+        buildSteps =
+          [
+            ''export HOME=$PWD/src ''
+            ''java -cp ${cljs}:src cljs.main -co build.edn -O advanced -c''
+            ''sed -i '1s/^/#!\/usr\/bin\/env osascript -l JavaScript\n\n /' ./out/main.js''
+            ''chmod +x ./out/main.js''
+          ] ;
+        installSteps =
+          [
+            ''mkdir -p $out''
+            ''cp ./out/main.js $out/barbara''
+          ] ;
+        buildDependencies = [pkgs.clojure pkgs.openjdk] ;
+      in rec {
+        packages.default = pkgs.stdenv.mkDerivation rec {
           name = "barabara" ;
           version = "0.0.1" ;
           src = ./. ;
-          buildInputs = [pkgs.clojure pkgs.openjdk] ;
-          buildPhase =
-            builtins.concatStringsSep "\n"
-              [
-                ''export HOME=$PWD/src ''
-                ''java -cp ${cljs}:src cljs.main -co build.edn -O advanced -c''
-                ''sed -i '1s/^/#!\/usr\/bin\/env osascript -l JavaScript\n\n /' ./out/main.js''
-                ''chmod +x ./out/main.js''
-              ] ;
-          installPhase =
-            builtins.concatStringsSep "\n"
-              [ ''mkdir -p $out''
-                ''cp ./out/main.js $out/barbara''] ;
+          buildInputs = buildDependencies ;
+          buildPhase = builtins.concatStringsSep "\n" buildSteps ;
+          installPhase = builtins.concatStringsSep "\n" installSteps ;
         };
-      in rec {
-        defaultPackage = tbc ;
+        devShells.default =
+          let
+            shell-fn = {name, commands}:
+              "function " + name + " () {\n" +
+              (builtins.foldl' (acc: elem: acc + " " + elem + "\n") "" commands)
+              + "}\n" ;
+            fns = builtins.concatStringsSep "\n"
+              [
+                (shell-fn {name = "build"; commands = buildSteps;})
+                (shell-fn {name = "install" ; commands = installSteps;})
+                (shell-fn {name = "setup" ; commands = [ "build" "install"];})
+                (shell-fn {name = "run" ; commands =  ["$out/barbara"];})
+                (shell-fn {name = "all" ; commands = [ "setup" "run"];})
 
+
+              ] ;
+          in
+            pkgs.mkShell {
+              packages = buildDependencies ;
+              shellHook = fns + '' echo "mac <3 clojurescript"'' ;
+            } ;
       }) ;
 }
