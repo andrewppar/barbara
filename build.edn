@@ -1,0 +1,4 @@
+{:main barbara.core
+ :target :browser
+ :optimizations :advanced
+ :externs ["resources/jxa.js"]}
