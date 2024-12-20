@@ -10,3 +10,6 @@ pom.xml.asc
 .cpcache/
 .clj-kondo
 .lsp
+/out
+/outputs
+result
