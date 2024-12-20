@@ -5,7 +5,15 @@ Application.includeStandardAdditions = function () {} ;
 Application.launch = function () {} ;
 Application.quit = function () {} ;
 Application.displayAlert = function () {} ;
-Application.getConfigurations = function () {} ;
+Application.configurations = function () {} ;
+
+/* object */
+Object.name = function () {};
+Object.state = function () {} ;
+Object.autoconnect = function () {};
+Object.bytesout = function () {};
+Object.bytesin = function () {};
+Object.at = function () {} ;
 
 /* arguments (command line) */
 var $ = {} ;
