@@ -14,6 +14,11 @@ Object.autoconnect = function () {};
 Object.bytesout = function () {};
 Object.bytesin = function () {};
 Object.at = function () {} ;
+Object.connect = function () {} ;
+Object.connectAll = function () {} ;
+Object.disconnect = function () {} ;
+Object.disconnectAll = function () {};
+Object.open = function () {} ;
 
 /* arguments (command line) */
 var $ = {} ;
