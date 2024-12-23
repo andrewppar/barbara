@@ -45,7 +45,7 @@
                 (shell-fn {name = "build"; commands = buildSteps;})
                 (shell-fn {name = "install" ; commands = installSteps;})
                 (shell-fn {name = "setup" ; commands = [ "build" "install"];})
-                (shell-fn {name = "run" ; commands =  ["$out/barbara $@"];})
+                (shell-fn {name = "run" ; commands =  ["$out/bin/barbara $@"];})
                 (shell-fn {name = "all" ; commands = [ "setup" "run"];})
 
 
