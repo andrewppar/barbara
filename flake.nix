@@ -21,8 +21,8 @@
           ] ;
         installSteps =
           [
-            ''mkdir -p $out''
-            ''cp ./out/main.js $out/barbara''
+            ''mkdir -p $out/bin''
+            ''cp ./out/main.js $out/bin/barbara''
           ] ;
         buildDependencies = [pkgs.clojure pkgs.openjdk] ;
       in rec {
