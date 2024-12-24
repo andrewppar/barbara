@@ -42,7 +42,7 @@
            {"connect" "connect to a VPN"
             "disconnect" "disconnect from a VPN"
             "launch" "launch tunnelblick"
-            "list" "list configurations"
+            "list, ls" "list configurations"
             "quit" "quit tunnelblick"
             "status" "tunnelblick connections status"})
     :status (help-doc
