@@ -27,8 +27,8 @@
         buildDependencies = [pkgs.clojure pkgs.openjdk] ;
       in rec {
         packages.default = pkgs.stdenv.mkDerivation rec {
-          name = "barabara" ;
-          version = "0.0.1" ;
+          name = "barbara" ;
+          version = "0.0.3" ;
           src = ./. ;
           buildInputs = buildDependencies ;
           buildPhase = builtins.concatStringsSep "\n" buildSteps ;
