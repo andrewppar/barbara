@@ -278,9 +278,10 @@
                   :help (get args :help)
                   :configuration (get args :configuration))
     "launch" (run :help (get args :help))
-    "list" (list-configurations
-            :help (get args :help)
-            :format (get args :format))
+    ("list" "ls") (list-configurations
+                   :help (get args :help)
+                   :format (get args :format))
+
     "quit" (quit :help (get args :help))
     "status" (status
               :help (get args :help)
