@@ -196,10 +196,7 @@
       (.quit (get-tunnelblick)))))
 
 (defn connected? [tunnelblick configuration]
-  (-> tunnelblick
-      (get-configuration configuration)
-      (get :status)
-      (= "CONNECTED")))
+  (= (get (get-configuration tunnelblick configuration) :state) "CONNECTED"))
 
 (defn ^:api connect [& {:keys [help configuration]}]
   (if help
