@@ -36,4 +36,4 @@
        :flags {})
       (do
         (println "stopping tunnelblick...")
-        (.quit (js/application "Tunnelblick"))))))
+        (.quit (js/Application "Tunnelblick"))))))

@@ -34,8 +34,7 @@
        config))
    (all tunnelblick)))
 
-(defn ^:private max-column-val
-  [column maps & {:keys [offset] :or {offset 0}}]
+(defn ^:private max-column-val [column offset maps]
   (+ (apply max (map (comp count column) maps)) offset))
 
 (defn ^:private show-config [column->max-val config-keys config]
@@ -55,7 +54,7 @@
         with-columns (cons columns configurations)
         column->max (reduce
                      (fn [acc column]
-                       (assoc acc column (max-column-val column with-columns 2)))
+                       (assoc acc column (max-column-val column 2 with-columns)))
                      {}
                      column-keys)]
     (->> with-columns

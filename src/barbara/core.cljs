@@ -7,11 +7,6 @@
    [barbara.help :as help]
    [barbara.tunnelblick :as tunnelblick]))
 
-;;(def objc-import (aget js/ObjC "import"))
-;;(def app (js/Application.currentApplication))
-;;(set! (.-includeStandardAdditions app) true)
-;;(objc-import "Cocoa")
-
 (defn help []
   (help/manpage
    :description "Manage tunnels with a tunnelblick CLI"
@@ -20,10 +15,13 @@
    :subcommands
    {"connect" "connect to a VPN"
     "disconnect" "disconnect from a VPN"
+    "install" "install a tunnelblick (or open vpn) profile"
     "launch" "launch tunnelblick"
     "list, ls" "list configurations"
     "quit" "quit tunnelblick"
-    "status" "tunnelblick connections status"}))
+    "credentials" "manage credentials for a configuration"
+    "status" "tunnelblick connections status"
+    "version" "tunnelblick version information"}))
 
 (defn -main []
   (case (args/command)
