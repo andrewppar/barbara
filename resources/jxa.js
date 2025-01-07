@@ -9,6 +9,9 @@ Application.configurations = function () {} ;
 Application.pathTo = function () {} ;
 Application.version = function () {} ;
 Application.deleteAllCredentialsFor = function () {} ;
+Application.saveUsername = function () {} ;
+Application.savePassword = function () {} ;
+
 
 /* object */
 Object.name = function () {};

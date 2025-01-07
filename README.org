@@ -1,0 +1,13 @@
+#+title: Barbara: ⚡CLI for Tunnelblick
+#+author: Andrew Parisi
+#+email: andrew.p.parisi@gmail.com
+#+date: 12-26-2024
+
+* Quick Start
+
+** Download
+
+** Brew
+
+** Nix Darwin
+* Development

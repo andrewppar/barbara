@@ -17,6 +17,12 @@
     ("--path" "-p")
     {:option :path :status :complex}
 
+    ("--password" "-w")
+    {:option :password :status :complex}
+
+    ("--username" "-u")
+    {:option :username :status :complex}
+
     {:option (keyword keyword-arg) :status :complex}))
 
 (def args
