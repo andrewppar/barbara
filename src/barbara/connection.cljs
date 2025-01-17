@@ -53,7 +53,7 @@
           (if (connected? tunnelblick configuration)
             (do
               (println "disconnecting...")
-              (.connect tunnelblick configuration)
+              (.disconnect tunnelblick configuration)
               (str "disconnected from " configuration))
             (str configuration " is not connected"))
 

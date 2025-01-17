@@ -11,3 +11,8 @@
 
 ** Nix Darwin
 * Development
+
+* Issues
+
+** TODO Add a logging namespace and verbosity levels
+** TODO Add a way to delete a configuration
